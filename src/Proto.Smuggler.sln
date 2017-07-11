@@ -2,11 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D890F9C6-4417-40D3-B159-BAB62F4D1FC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proto.Smuggler", "Proto.Smuggler\Proto.Smuggler.csproj", "{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proto.Smuggler", "src\Proto.Smuggler\Proto.Smuggler.csproj", "{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proto.Smuggler.Json", "src\Proto.Smuggler.Json\Proto.Smuggler.Json.csproj", "{B28998F2-0043-4273-A204-12CDD176F60B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proto.Smuggler.Json", "Proto.Smuggler.Json\Proto.Smuggler.Json.csproj", "{B28998F2-0043-4273-A204-12CDD176F60B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BEC14C9F-3950-4DBC-ACDC-20FC75DE98E4}"
 	ProjectSection(SolutionItems) = preProject
@@ -53,9 +51,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12} = {D890F9C6-4417-40D3-B159-BAB62F4D1FC6}
-		{B28998F2-0043-4273-A204-12CDD176F60B} = {D890F9C6-4417-40D3-B159-BAB62F4D1FC6}
 	EndGlobalSection
 EndGlobal

@@ -2,6 +2,7 @@
 .fake/
 .tools/
 .vs/
+.output/
 
 bin/
 obj/
