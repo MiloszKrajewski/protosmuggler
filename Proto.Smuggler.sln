@@ -1,0 +1,61 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D890F9C6-4417-40D3-B159-BAB62F4D1FC6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proto.Smuggler", "src\Proto.Smuggler\Proto.Smuggler.csproj", "{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proto.Smuggler.Json", "src\Proto.Smuggler.Json\Proto.Smuggler.Json.csproj", "{B28998F2-0043-4273-A204-12CDD176F60B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BEC14C9F-3950-4DBC-ACDC-20FC75DE98E4}"
+	ProjectSection(SolutionItems) = preProject
+		fake.ps1 = fake.ps1
+		paket.dependencies = paket.dependencies
+		paket.ps1 = paket.ps1
+		protoc.ps1 = protoc.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Debug|x64.Build.0 = Debug|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Debug|x86.Build.0 = Debug|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Release|x64.ActiveCfg = Release|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Release|x64.Build.0 = Release|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Release|x86.ActiveCfg = Release|Any CPU
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12}.Release|x86.Build.0 = Release|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Debug|x64.Build.0 = Debug|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Debug|x86.Build.0 = Debug|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Release|x64.ActiveCfg = Release|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Release|x64.Build.0 = Release|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Release|x86.ActiveCfg = Release|Any CPU
+		{B28998F2-0043-4273-A204-12CDD176F60B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F7C43831-F1CD-4DAE-9FD0-AE35A7D08D12} = {D890F9C6-4417-40D3-B159-BAB62F4D1FC6}
+		{B28998F2-0043-4273-A204-12CDD176F60B} = {D890F9C6-4417-40D3-B159-BAB62F4D1FC6}
+	EndGlobalSection
+EndGlobal

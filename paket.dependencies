@@ -1,0 +1,7 @@
+source https://www.nuget.org/api/v2
+
+framework: netcoreapp1.1
+
+nuget System.ValueTuple
+nuget Google.Protobuf
+nuget Newtonsoft.Json

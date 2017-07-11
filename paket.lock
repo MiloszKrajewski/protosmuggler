@@ -1,0 +1,6 @@
+FRAMEWORK: NETCORE11
+NUGET
+  remote: https://www.nuget.org/api/v2
+    Google.Protobuf (3.3)
+    Newtonsoft.Json (10.0.3)
+    System.ValueTuple (4.3.1)
