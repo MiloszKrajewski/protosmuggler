@@ -3,7 +3,7 @@ using Google.Protobuf;
 
 namespace Proto.Smuggler
 {
-	public class Smuggler
+	public static class Smuggler
 	{
 		private static Func<object, byte[]> _serialize;
 		private static Func<byte[], object> _deserialize;
@@ -44,11 +44,5 @@ namespace Proto.Smuggler
 
 		public static object TryReveal(object message) =>
 			message is Contraband contraband ? TryReveal(contraband) : message;
-	}
-
-	public interface ISmuggler
-	{
-		byte[] Serialize(object subject);
-		object Deserialize(byte[] message);
 	}
 }
