@@ -1,4 +1,6 @@
 #r "../.fake/FakeLib.dll"
+#r "System.Xml.dll"
+#r "System.Xml.Linq.dll"
 
 namespace Fake
 
@@ -6,8 +8,6 @@ open Fake
 open System
 open System.IO
 open System.Text
-open System.Text.RegularExpressions
-open System.Diagnostics
 
 [<AutoOpen>]
 module Fx =
@@ -42,6 +42,8 @@ module File =
     let exists filename = File.Exists(filename)
 
 module Regex =
+    open System.Text.RegularExpressions
+
     let create ignoreCase pattern =
         let ignoreCase = if ignoreCase then RegexOptions.IgnoreCase else RegexOptions.None
         Regex(pattern, RegexOptions.ExplicitCapture ||| RegexOptions.IgnorePatternWhitespace ||| ignoreCase)
@@ -51,6 +53,36 @@ module Regex =
 
     let (|Match|_|) (pattern: Regex) text =
         match pattern.Match(text) with | m when m.Success -> Some m | _ -> None
+
+module Xml = 
+    open System.Xml
+    open System.Xml.Linq
+
+    let load (filename: string) = 
+        use reader = new StreamReader(filename)
+        XDocument.Load(reader)
+
+    let save (filename: string) (doc: XDocument) = 
+        let settings = XmlWriterSettings(Indent = true, IndentChars = "\t")
+        use writer = XmlWriter.Create(filename, settings)
+        doc.Save(writer)
+
+    let elem (name: string) (doc: XContainer) =
+        doc.Elements() |> Seq.filter (fun e -> e.Name.LocalName = name) |> Seq.tryHead
+
+    let updateOrAdd (path: string) (value: string) (doc: XContainer) = 
+        let getOrAdd (name: string) (element: XContainer) = 
+            match elem name element with 
+            | None -> XElement(XName.Get(name)) |> tap element.Add 
+            | Some x -> x
+        let rec update (path: string list) (element: XContainer) =
+            match path with
+            | [] -> element.RemoveNodes(); element.Add(XText(value))
+            | "" :: tail -> element.Document |> update tail
+            | "." :: tail -> element |> update tail
+            | ".." :: tail -> element.Parent |> update tail
+            | name :: tail -> (getOrAdd name element) |> update tail
+        update (path.Split([|'/'|]) |> List.ofArray) doc
 
 module Config =
     type Item = { Section: string; Key: string; Value: string }
@@ -91,6 +123,8 @@ module Config =
         | Some v -> v | None -> failwithf "Value %s:%s could not be found" section key
 
 module Shell =
+    open System.Diagnostics
+
     let runAt directory executable arguments =
         let command = sprintf "%s %s" (String.quote executable) arguments |> tap (tracefn "> %s")
         let comspec = environVarOrFail "COMSPEC"
@@ -111,10 +145,6 @@ module Proj =
 
     let packageVersion = releaseNotes.NugetVersion |> Regex.replace "-wip$" (timestamp |> sprintf "-wip%s")
     let assemblyVersion = releaseNotes.AssemblyVersion
-    let versionBuildArgs = [
-        packageVersion |> sprintf "/p:PackageVersion=%s"
-        assemblyVersion |> sprintf "/p:AssemblyVersion=%s"
-    ]
 
     let secrets =
         ["."]
@@ -127,6 +157,15 @@ module Proj =
             let coreName = versionFile |> Regex.replace "\\.nupkg\\.latest$" ""
             let version = versionFile |> ReadFile |> Seq.head
             (coreName, version)
+        )
+    
+    let updateVersion projectFile = 
+        projectFile |> File.update (fun fn ->
+            Xml.load fn
+            |> tap (Xml.updateOrAdd "/Project/PropertyGroup/Version" packageVersion)
+            |> tap (Xml.updateOrAdd "/Project/PropertyGroup/AssemblyVersion" assemblyVersion)
+            |> tap (Xml.updateOrAdd "/Project/PropertyGroup/FileVersion" assemblyVersion)
+            |> Xml.save fn
         )
 
     let listProj () =
@@ -148,7 +187,6 @@ module Proj =
             { p with 
                 Project = project
                 Configuration = "Release"
-                AdditionalArgs = versionBuildArgs 
             })
 
     let restore project = DotNetCli.Restore (fun p -> { p with Project = project })
@@ -159,7 +197,7 @@ module Proj =
                 Project = project
                 Configuration = "Release"
                 OutputPath = outputFolder |> FullName
-                AdditionalArgs = versionBuildArgs // @ ["--include-symbols"]
+                // AdditionalArgs = ["--include-symbols"]
             })
         let versionFile = outputFolder @@ (project |> filename) |> sprintf "%s.nupkg.latest"
         [ version ] |> WriteFile versionFile
@@ -170,7 +208,6 @@ module Proj =
                 Project = project
                 Configuration = "Release"
                 Output = targetFolder |> FullName
-                AdditionalArgs = versionBuildArgs // @ ["--include-symbols"]
             }
         )
 
@@ -210,3 +247,4 @@ module Proj =
             projects |> Seq.iter fixPackReferences
             pack packageVersion project
         )
+

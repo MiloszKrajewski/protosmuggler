@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Google.Protobuf;
+using Google.Protobuf.Reflection;
 
 namespace Proto.Smuggler
 {
@@ -15,6 +17,9 @@ namespace Proto.Smuggler
 			_serialize = serialize;
 			_deserialize = deserialize;
 		}
+
+		public static IEnumerable<FileDescriptor> Descriptors =>
+			new[] { ContrabandReflection.Descriptor };
 
 		public static void Use(ISmuggler smuggler)
 		{

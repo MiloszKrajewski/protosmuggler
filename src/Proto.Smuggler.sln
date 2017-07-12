@@ -8,10 +8,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proto.Smuggler.Json", "Prot
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BEC14C9F-3950-4DBC-ACDC-20FC75DE98E4}"
 	ProjectSection(SolutionItems) = preProject
-		fake.ps1 = fake.ps1
-		paket.dependencies = paket.dependencies
-		paket.ps1 = paket.ps1
-		protoc.ps1 = protoc.ps1
+		..\build.fsx = ..\build.fsx
+		..\fake.ps1 = ..\fake.ps1
+		..\paket.dependencies = ..\paket.dependencies
+		..\paket.ps1 = ..\paket.ps1
+		..\protoc.ps1 = ..\protoc.ps1
 	EndProjectSection
 EndProject
 Global
