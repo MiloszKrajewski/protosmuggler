@@ -11,3 +11,4 @@ paket-files/
 
 *.suo
 *.user
+.secrets.config

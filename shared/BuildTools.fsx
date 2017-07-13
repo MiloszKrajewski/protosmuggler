@@ -67,8 +67,12 @@ module Xml =
         use writer = XmlWriter.Create(filename, settings)
         doc.Save(writer)
 
-    let elem (name: string) (doc: XContainer) =
-        doc.Elements() |> Seq.filter (fun e -> e.Name.LocalName = name) |> Seq.tryHead
+    let elems (name: string) (doc: XContainer) =
+        doc.Elements() |> Seq.filter (fun e -> e.Name.LocalName = name)
+
+    let elem (name: string) (doc: XContainer) = doc |> elems name |> Seq.tryHead
+
+    let private splitPath (path: string) = (path.Split([|'/'|]) |> List.ofArray)
 
     let updateOrAdd (path: string) (value: string) (doc: XContainer) = 
         let getOrAdd (name: string) (element: XContainer) = 
@@ -82,7 +86,22 @@ module Xml =
             | "." :: tail -> element |> update tail
             | ".." :: tail -> element.Parent |> update tail
             | name :: tail -> (getOrAdd name element) |> update tail
-        update (path.Split([|'/'|]) |> List.ofArray) doc
+        update (splitPath path) doc
+    
+    let findAll (path: string) (doc: XContainer) =
+        let rec find (path: string list) (elements: XContainer seq) =
+            match path with
+            | [] -> elements |> Seq.choose Option.cast<XElement>
+            | "" :: tail -> [doc.Document :> XContainer] |> find tail
+            | "." :: tail -> elements |> find tail
+            | ".." :: tail -> elements |> Seq.map (fun e -> e.Parent :> XContainer) |> find tail
+            | name :: tail -> 
+                elements 
+                |> Seq.collect (elems name)
+                |> Seq.choose Option.cast<XContainer> 
+                |> List.ofSeq 
+                |> find tail
+        find (splitPath path) [doc]
 
 module Config =
     type Item = { Section: string; Key: string; Value: string }
