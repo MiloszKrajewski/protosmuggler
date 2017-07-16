@@ -9,6 +9,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BEC14C9F-3950-4DBC-ACDC-20FC75DE98E4}"
 	ProjectSection(SolutionItems) = preProject
 		..\build.fsx = ..\build.fsx
+		..\CHANGES.md = ..\CHANGES.md
 		..\fake.ps1 = ..\fake.ps1
 		..\paket.dependencies = ..\paket.dependencies
 		..\paket.ps1 = ..\paket.ps1

@@ -10,6 +10,8 @@ namespace Proto.Smuggler
 		private static Func<object, byte[]> _serialize;
 		private static Func<byte[], object> _deserialize;
 
+		public static FileDescriptor Descriptor => ContrabandReflection.Descriptor;
+
 		public static void Use(
 			Func<object, byte[]> serialize,
 			Func<byte[], object> deserialize)
@@ -17,9 +19,6 @@ namespace Proto.Smuggler
 			_serialize = serialize;
 			_deserialize = deserialize;
 		}
-
-		public static IEnumerable<FileDescriptor> Descriptors =>
-			new[] { ContrabandReflection.Descriptor };
 
 		public static void Use(ISmuggler smuggler)
 		{
